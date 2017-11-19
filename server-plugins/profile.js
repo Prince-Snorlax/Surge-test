@@ -547,4 +547,20 @@ exports.commands = {
 			});
 		}
 	},
+		profilehelp: [
+		"/profile [user] - Shows a user's profile. Defaults to yourself.",
+		"/pteam give [user] - Gives a user access to edit their profile team. Requires + or higher.",
+		"/pteam add [slot], [dex # of the Pokemon] - Adds a Pokemon onto your profile team. Requires profile edit access.",
+		"/pteam take [user] - Revokes a user's access to edit their profile team. Requires + or higher.",
+		"/music set [user], [song], [title] - Sets a user's profile song. Requires + or higher.",
+		"/music take [user] - Removes a user's profile song. Requires + or higher.",
+		"/bg set [user], [link] - Sets the user's profile background. Requires + or higher.",
+		"/bg delete [user] - Removes the user's profile background. Requires + or higher.",
+		"/fc set [friend code] - Sets your Friend Code.",
+		"/fc delete [friend code] - Removes your Friend Code.",
+		"/dev give [user] - Gives a user Dev Status. Requires @ or higher.",
+		"/dev take [user] - Removes a user's Dev Status. Requires @ or higher.",
+		"/vip give [user] - Gives a user VIP Status. Requires @ or higher.",
+		"/vip take [user] - Removes a user's VIP Status. Requires @ or higher.",
+	],
 };
