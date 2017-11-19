@@ -1,0 +1,126 @@
+
+TypeError: Chat.loginfilter is not a function
+    at User.handleRename (/home/ubuntu/workspace/Research & Development/users.js:777:9)
+    at User.validateRename (/home/ubuntu/workspace/Research & Development/users.js:714:8)
+    at Verifier.verify.then.success (/home/ubuntu/workspace/Research & Development/users.js:666:10)
+    at <anonymous>
+    at process._tickDomainCallback (internal/process/next_tick.js:228:7)
+
+ReferenceError: regdate is not defined
+    at Economy.readMoney.money (/home/ubuntu/workspace/Research & Development/server-plugins/profile.js:530:85)
+    at Object.readMoney (/home/ubuntu/workspace/Research & Development/server-plugins/economy.js:103:10)
+    at showProfile (/home/ubuntu/workspace/Research & Development/server-plugins/profile.js:524:12)
+    at CommandContext.profile (/home/ubuntu/workspace/Research & Development/server-plugins/profile.js:442:4)
+    at CommandContext.run (/home/ubuntu/workspace/Research & Development/chat.js:394:28)
+    at CommandContext.parse (/home/ubuntu/workspace/Research & Development/chat.js:226:19)
+    at Object.Chat.parse (/home/ubuntu/workspace/Research & Development/chat.js:956:17)
+    at User.chat (/home/ubuntu/workspace/Research & Development/users.js:1434:9)
+    at Function.Users.socketReceive (/home/ubuntu/workspace/Research & Development/users.js:1621:12)
+    at Worker.worker.on.data (/home/ubuntu/workspace/Research & Development/sockets.js:53:11)
+
+Additional information:
+  user = Prince Sky
+  room = lobby
+  pmTarget = undefined
+  message = /profile
+
+
+TypeError: Server.regdate is not a function
+    at CommandContext.regdate (/home/ubuntu/workspace/Research & Development/server-plugins/server.js:820:10)
+    at CommandContext.run (/home/ubuntu/workspace/Research & Development/chat.js:394:28)
+    at CommandContext.parse (/home/ubuntu/workspace/Research & Development/chat.js:226:19)
+    at Object.Chat.parse (/home/ubuntu/workspace/Research & Development/chat.js:956:17)
+    at User.chat (/home/ubuntu/workspace/Research & Development/users.js:1434:9)
+    at Function.Users.socketReceive (/home/ubuntu/workspace/Research & Development/users.js:1621:12)
+    at Worker.worker.on.data (/home/ubuntu/workspace/Research & Development/sockets.js:53:11)
+    at emitTwo (events.js:131:20)
+    at Worker.emit (events.js:214:7)
+    at ChildProcess.Worker.process.on (internal/cluster/worker.js:42:12)
+
+Additional information:
+  user = Prince Sky
+  room = lobby
+  pmTarget = undefined
+  message = /regdate princesky
+
+
+TypeError: Server.tourCard is not a function
+    at Tournament.onTournamentEnd (/home/ubuntu/workspace/Research & Development/tournaments/index.js:957:29)
+    at Tournament.onBattleWin (/home/ubuntu/workspace/Research & Development/tournaments/index.js:899:9)
+    at Battle.onEnd (/home/ubuntu/workspace/Research & Development/room-battle.js:590:15)
+    at Battle.receive (/home/ubuntu/workspace/Research & Development/room-battle.js:489:10)
+    at ProcessWrapper.onMessageUpstream (/home/ubuntu/workspace/Research & Development/room-battle.js:40:22)
+    at emitOne (events.js:116:13)
+    at ProcessWrapper.emit (events.js:211:7)
+    at ChildProcess.ProcessWrapper.process.on.message (/home/ubuntu/workspace/Research & Development/process-manager.js:45:77)
+    at emitTwo (events.js:126:13)
+    at ChildProcess.emit (events.js:214:7)
+
+TypeError: "options" must be a string or an object, got boolean instead.
+    at getOptions (fs.js:75:11)
+    at Object.fs.writeFile (fs.js:1261:13)
+    at Timeout._onTimeout (/home/ubuntu/workspace/Research & Development/app.js:206:6)
+    at ontimeout (timers.js:475:11)
+    at tryOnTimeout (timers.js:310:5)
+    at Timer.listOnTimeout (timers.js:270:5)
+
+TypeError: "options" must be a string or an object, got boolean instead.
+    at getOptions (fs.js:75:11)
+    at Object.fs.writeFile (fs.js:1261:13)
+    at Timeout._onTimeout (/home/ubuntu/workspace/Research & Development/app.js:206:6)
+    at ontimeout (timers.js:475:11)
+    at tryOnTimeout (timers.js:310:5)
+    at Timer.listOnTimeout (timers.js:270:5)
+
+TypeError: "options" must be a string or an object, got boolean instead.
+    at getOptions (fs.js:75:11)
+    at Object.fs.writeFile (fs.js:1261:13)
+    at Timeout._onTimeout (/home/ubuntu/workspace/Research & Development/app.js:206:6)
+    at ontimeout (timers.js:475:11)
+    at tryOnTimeout (timers.js:310:5)
+    at Timer.listOnTimeout (timers.js:270:5)
+
+Error: bind EACCES 0.0.0.0:80
+    at Object._errnoException (util.js:1024:11)
+    at _exceptionWithHostPort (util.js:1046:20)
+    at listenOnMasterHandle (net.js:1411:16)
+    at rr (internal/cluster/child.js:111:12)
+    at Worker.send (internal/cluster/child.js:78:7)
+    at process.onInternalMessage (internal/cluster/utils.js:42:8)
+    at emitTwo (events.js:131:20)
+    at process.emit (events.js:214:7)
+    at emit (internal/child_process.js:772:12)
+    at _combinedTickCallback (internal/process/next_tick.js:141:11)
+
+Additional information:
+
+
+Error: bind EADDRINUSE 0.0.0.0:8080
+    at Object._errnoException (util.js:1024:11)
+    at _exceptionWithHostPort (util.js:1046:20)
+    at listenOnMasterHandle (net.js:1411:16)
+    at rr (internal/cluster/child.js:111:12)
+    at Worker.send (internal/cluster/child.js:78:7)
+    at process.onInternalMessage (internal/cluster/utils.js:42:8)
+    at emitTwo (events.js:131:20)
+    at process.emit (events.js:214:7)
+    at emit (internal/child_process.js:772:12)
+    at _combinedTickCallback (internal/process/next_tick.js:141:11)
+
+Additional information:
+
+
+Error: bind EADDRINUSE 0.0.0.0:8080
+    at Object._errnoException (util.js:1024:11)
+    at _exceptionWithHostPort (util.js:1046:20)
+    at listenOnMasterHandle (net.js:1411:16)
+    at rr (internal/cluster/child.js:111:12)
+    at Worker.send (internal/cluster/child.js:78:7)
+    at process.onInternalMessage (internal/cluster/utils.js:42:8)
+    at emitTwo (events.js:131:20)
+    at process.emit (events.js:214:7)
+    at emit (internal/child_process.js:772:12)
+    at _combinedTickCallback (internal/process/next_tick.js:141:11)
+
+Additional information:
+

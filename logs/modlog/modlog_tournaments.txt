@@ -1,0 +1,9 @@
+[2017-11-18T12:46:58.180Z] (tournaments) A Helpful Rayquaza was appointed Room Founder by Alliance Sky.
+[2017-11-18T12:51:52.585Z] (tournaments) (A Helpful Rayquaza changed the roomintro.)
+[2017-11-18T12:57:39.037Z] (tournaments) SnorlaxTheRain made this chat room official.
+[2017-11-18T13:27:55.250Z] (tournaments) (A game of UNO was created by Alliance Sky.)
+[2017-11-18T13:28:48.584Z] (tournaments) (The game of UNO was ended by Alliance Sky.)
+[2017-11-18T13:28:54.094Z] (tournaments) (undefined used /globalclearall.)
+[2017-11-18T16:33:49.924Z] (tournaments) (Alliance Sky changed the roomdesc to: "Feels lost? Come join us in lobby and chat about anything you want.".)
+[2017-11-19T12:37:29.698Z] (tournaments) (Alliance Sky changed the roomdesc to: "Official surge tournaments room.".)
+[2017-11-19T12:37:41.467Z] (tournaments) snorlaxtherain was appointed Room Founder by Alliance Sky.

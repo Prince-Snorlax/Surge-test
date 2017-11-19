@@ -1,0 +1,22 @@
+[2017-11-18T12:34:13.906Z] (lobby) (Prince Sky used /clearall.)
+[2017-11-18T12:43:22.018Z] (lobby) Alliance Sky was promoted to Moderator by Alliance Sky.
+[2017-11-18T12:43:29.464Z] (lobby) (Alliance Sky used /clearall.)
+[2017-11-18T12:58:17.466Z] (lobby) A Helpful Rayquaza was appointed Room Owner by Alliance Sky.
+[2017-11-18T13:01:31.997Z] (lobby) A Helpful Rayquaza was promoted to Administrator by Alliance Sky.
+[2017-11-18T13:05:47.521Z] (lobby) (princesky was demoted to Voice by SnorlaxTheRain.)
+[2017-11-18T13:07:05.956Z] (lobby) (Alliance Sky created a tournament in gen7randombattle format.)
+[2017-11-18T13:31:25.221Z] (lobby) (SnorlaxTheRain changed the roomintro.)
+[2017-11-18T13:32:32.729Z] (lobby) (Alliance Sky changed the roomintro.)
+[2017-11-18T13:34:18.982Z] (lobby) (SnorlaxTheRain changed the roomintro.)
+[2017-11-18T13:35:47.977Z] (lobby) (A poll was started by Alliance Sky.)
+[2017-11-18T13:36:51.587Z] (lobby) (SnorlaxTheRain changed the roomintro.)
+[2017-11-18T13:58:38.582Z] (lobby) (A Helpful Rayquaza added server announcement: Welcome)
+[2017-11-18T14:17:43.751Z] (lobby) A Helpful Rayquaza globally declared: Don't for to /news and to subscribe it
+[2017-11-18T14:17:59.654Z] (lobby) A Helpful Rayquaza globally declared: Don't forget to /news and to subscribe it
+[2017-11-18T14:56:30.091Z] (lobby) (Alliance Sky deleted server announcement titled: Welcome.)
+[2017-11-18T15:15:07.613Z] (lobby) pokemon shado was promoted to Voice by Alliance Sky.
+[2017-11-18T15:59:25.259Z] (lobby) pokemon shado was warned by Surge BoT. (Automated moderation: Stretching)
+[2017-11-18T16:06:57.588Z] (lobby) (A poll was started by Alliance Sky.)
+[2017-11-18T17:04:06.398Z] (lobby) (A survey was started by Alliance Sky.)
+[2017-11-18T17:04:49.588Z] (lobby) (A poll was ended by Alliance Sky.)
+[2017-11-19T12:37:15.836Z] (lobby) (Alliance Sky changed the roomdesc to: "feels lost? Come and join us in lobby.".)
