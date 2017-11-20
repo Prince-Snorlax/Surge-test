@@ -4,7 +4,7 @@ let fs = require('fs');
 let http = require('http');
 const Autolinker = require('autolinker');
 
-/*let regdateCache = {};*/
+let regdateCache = {};
 
 exports.WL = {
 	nameColor: function (name, bold, userGroup) {
@@ -12,7 +12,7 @@ exports.WL = {
 		return (userGroup ? userGroupSymbol : "") + (bold ? "<b>" : "") + "<font color=" + WL.hashColor(name) + ">" + (Users(name) && Users(name).connected && Users.getExact(name) ? Chat.escapeHTML(Users.getExact(name).name) : Chat.escapeHTML(name)) + "</font>" + (bold ? "</b>" : "");
 	},
 	// usage: WL.nameColor(user.name, true) for bold OR WL.nameColor(user.name, false) for non-bolded.
-/*
+
 	messageSeniorStaff: function (message, pmName, from) {
 		pmName = (pmName ? pmName : '~Wavelength Server');
 		from = (from ? ' (PM from ' + from + ')' : '');
@@ -21,13 +21,13 @@ exports.WL = {
 				curUser.send('|pm|' + pmName + '|' + curUser.getIdentity() + '|' + message + from);
 			}
 		});
-	},*/
+	},
 	// format: WL.messageSeniorStaff('message', 'person')
 	//
 	// usage: WL.messageSeniorStaff('Mystifi is a confirmed user and they were banned from a public room. Assess the situation immediately.', '~Server')
 	//
 	// this makes a PM from ~Server stating the message
-/*
+
 	regdate: function (target, callback) {
 		target = toId(target);
 		if (regdateCache[target]) return callback(regdateCache[target]);
@@ -57,7 +57,7 @@ exports.WL = {
 			});
 		});
 	},
-*/
+
 	/* eslint-disable no-useless-escape */
 	parseMessage: function (message) {
 		if (message.substr(0, 5) === "/html") {
@@ -81,7 +81,7 @@ exports.WL = {
 
 	randomString: function (length) {
 		return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
-	},/*
+	},
 
 	reloadCSS: function () {
 		const cssPath = 'wavelength'; // This should be the server id if Config.serverid doesn't exist. Ex: 'serverid'
@@ -116,15 +116,15 @@ exports.WL = {
 		}
 		Economy.writeMoney(user.userid, reward);
 		user.send('|popup||wide||html| <center><u><b><font size="3">Wavelength Daily Bonus</font></b></u><br>You have been awarded ' + reward + ' Stardust.<br>' + showDailyRewardAni(reward) + '<br>Because you have connected to the server for the past ' + (reward === 1 ? 'Day' : reward + ' Days') + '.</center>');
-	},*/
+	},
 	makeCOM: function () {
-		if (Users('surgeserver')) return false; // Already exists!
+		if (Users('sgserver')) return false; // Already exists!
 		let user = new Users.User({user: false, send: function () {}, inRooms: new Set(), worker: {send: function () {}}, socketid: false, ip: '127.0.0.1', protocal: '', autojoin: '', isCOM: true}); // Fake connection object, fill it with whats needed to prevent crashes
 		user.connected = false; // Technically isnt connected
 		user.avatar = 167;
 		user.wildTeams = {}; // Object to store data from wild pokemon battles.
 		user.trainerTeams = {}; // Object to store data from trainer battles.
-		user.forceRename('Surge Server', true); // I have this name registed for use here. - HoeenHero
+		user.forceRename('SG Server', true); // I have this name registed for use here. - HoeenHero
 		return user;
 	},
 	makeWildPokemon: function (location, lvlBase, exact) {
@@ -793,7 +793,7 @@ exports.WL = {
 	},
 };
 
-/*last two functions needed to make sure WL.regdate() fully works*//*
+// last two functions needed to make sure WL.regdate() fully works
 function loadRegdateCache() {
 	try {
 		regdateCache = JSON.parse(fs.readFileSync('config/regdate.json', 'utf8'));
@@ -811,4 +811,4 @@ function showDailyRewardAni(streak) {
 		output += "<img src='http://i.imgur.com/ZItWCLB.png' width='16' height='16'> ";
 	}
 	return output;
-}*/
+}
