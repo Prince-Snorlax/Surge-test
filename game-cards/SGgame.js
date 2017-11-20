@@ -52,12 +52,12 @@ class SGgame extends Console.Console {
 				this.queue.unshift(msg);
 				return base;
 			}
-			poke = Db.players.get(this.userid).party[Number(msg.split('|')[1])];
+			poke = SG.players.get(this.userid).party[Number(msg.split('|')[1])];
 			if (poke.moves.length < 4) {
 				// Automatically learn the move
-				let obj = Db.players.get(this.userid);
+				let obj = SG.players.get(this.userid);
 				obj.party[Number(msg.split('|')[1])].moves.push(toId(msg.split('|')[2]));
-				Db.players.set(this.userid, obj);
+				SG.players.set(this.userid, obj);
 				parts = base.split('<!--split-->');
 				return [null, parts.shift() + '<div style="display: inline-block; position: absolute; bottom: 0; overflow: hidden; border: 0.2em solid #000; border-radius: 5px; width: 99%; color: #000;">' + (poke.name || poke.species) + ' learned ' + msg.split('|')[2] + '! <button style="border: none; background: none; color: purple; cursor: pointer;" name="send" value="/sggame next"><u>&#9733;</u></button></div>' + parts.join(''), null];
 			}
@@ -70,7 +70,7 @@ class SGgame extends Console.Console {
 				this.queue.unshift(msg);
 				return base;
 			}
-			poke = Db.players.get(this.userid).party[Number(msg.split('|')[1])];
+			poke = SG.players.get(this.userid).party[Number(msg.split('|')[1])];
 			this.queueAction = msg;
 			return ['background: linear-gradient(blue, white); color: #000;', '<br/><br/><br/><br/><br/><center><img src="http://play.pokemonshowdown.com/sprites/xyani' + (poke.shiny ? '-shiny' : '') + '/' + Dex.getTemplate(poke.species).spriteid + '.gif" alt="' + poke.species + '"/></center><div style="display: inline-block; position: absolute; bottom: 0; overflow: hidden; border: 0.2em solid #000; border-radius: 5px; width: 99%; color: #000;">What? ' + (poke.name || poke.species) + ' is evolving! <button style="border: none; background: none; color: purple; cursor: pointer;" name="send" value="/sggame evo"><u>&#9733;</u></button></div>', null];
 			//break;
@@ -82,7 +82,7 @@ class SGgame extends Console.Console {
 	bag(menu, item) {
 		menu = toId(menu);
 		item = toId(item);
-		let player = Db.players.get(this.userid);
+		let player = SG.players.get(this.userid);
 		if (!menu || !(menu in player.bag)) menu = 'items';
 		let output = '<div style="display: inline-block; position: absolute; bottom: 0; overflow: hidden; border: 0.2em solid #000; border-radius: 5px; width: 99%; height: 98%; color: #000; background-color: rgba(255, 255, 255, 0.8);"><center>';
 		for (let p in player.bag) {
@@ -113,7 +113,7 @@ class SGgame extends Console.Console {
 		if (!box || isNaN(Number(box)) || box < 0 || box > Db.players.get(this.userid).pc.length) box = 1;
 		box = Number(box);
 		slot = Number(slot);
-		let user = Db.players.get(this.userid);
+		let user = SG.players.get(this.userid);
 		let pokemon;
 		const boxLimit = 30;
 		switch (action) {
@@ -123,7 +123,7 @@ class SGgame extends Console.Console {
 			pokemon = user.party[slot];
 			user.boxPoke([pokemon], box);
 			user.party.splice(slot, 1);
-			Db.players.set(this.userid, user);
+				SG.players.set(this.userid, user);
 			slot = null;
 			break;
 		case 'withdraw':
@@ -131,7 +131,7 @@ class SGgame extends Console.Console {
 			pokemon = user.pc[box - 1][slot];
 			user.unBoxPoke(box, slot);
 			user.party = user.party.concat(Dex.fastUnpackTeam(pokemon));
-			Db.players.set(this.userid, user);
+			SG.players.set(this.userid, user);
 			slot = null;
 			break;
 		case 'release':
@@ -141,11 +141,11 @@ class SGgame extends Console.Console {
 			if (targetParty) {
 				if (user.party.length <= 1) break;
 				user.party.splice(slot, 1);
-				Db.players.set(this.userid, user);
+				SG.players.set(this.userid, user);
 				slot = null;
 			} else {
 				user.pc[box - 1].splice(slot, 1);
-				Db.players.set(this.userid, user);
+				SG.players.set(this.userid, user);
 				slot = null;
 			}
 			break;
@@ -486,10 +486,10 @@ class SGgame extends Console.Console {
 				Rooms(key).game.forfeit(user);
 			}
 		}
-		let player = Db.players.get(this.userid);
+		let player = SG.players.get(this.userid);
 		if (!player) return;
 		player.time += (Date.now() - this.session);
-		Db.players.set(this.userid, player);
+		SG.players.set(this.userid, player);
 	}
 }
 
@@ -580,7 +580,7 @@ exports.commands = {
 		user.console = new SGgame(user, room, !!target);
 		if (cmd === 'playalpha') {
 			let htm = '<center>';
-			if (Db.players.has(user.userid)) htm += '<button name="send" value="/continuealpha" style="display: block; border: 5px solid #AAA; background: #FFF; font-family: monospace; border-radius: 5px; width: 90%; text-align: left;"><b>CONTINUE</b><br/><br/><span style="color: #4286f4">PLAYER ' + user.name + '<br/><br/>TIME ' + (Chat.toDurationString(Db.players.get(user.userid).time, {precision: 2}) || '0 Seconds') + '<br/><br/>POKEDEX ' + Object.keys(Db.players.get(user.userid).pokedex).length + '</span></button>';
+			if (SG.players.has(user.userid)) htm += '<button name="send" value="/continuealpha" style="display: block; border: 5px solid #AAA; background: #FFF; font-family: monospace; border-radius: 5px; width: 90%; text-align: left;"><b>CONTINUE</b><br/><br/><span style="color: #4286f4">PLAYER ' + user.name + '<br/><br/>TIME ' + (Chat.toDurationString(SG.players.get(user.userid).time, {precision: 2}) || '0 Seconds') + '<br/><br/>POKEDEX ' + Object.keys(SG.players.get(user.userid).pokedex).length + '</span></button>';
 			htm += '<button name="send" value="/confirmresetalpha" style="display: block; border: 5px solid #AAA; background: #FFF; font-family: monospace; border-radius: 5px; width: 90%; text-align: left;"><b>NEW GAME</b></button></center>';
 			user.console.init();
 			user.console.update('background-color: #6688AA;', htm, null);
@@ -609,13 +609,13 @@ exports.commands = {
 			this.parse('/sggame next');
 		} else {
 			// Continue
-			if (!Db.players.has(user.userid)) return this.parse('/confirmresetalpha');
+			if (!SG.players.has(user.userid)) return this.parse('/confirmresetalpha');
 			try {
 				Db.players.get(user.userid).test();
 			} catch (e) {
 				let newPlayer = new Player(user, Dex.fastUnpackTeam(WL.makeWildPokemon(false, false, {name: "ERROR!", species: "Mudkip", level: 10, ability: 0})));
-				Object.assign(newPlayer, Db.players.get(user.userid));
-				Db.players.set(user.userid, newPlayer);
+				Object.assign(newPlayer, SG.players.get(user.userid));
+				SG.players.set(user.userid, newPlayer);
 			}
 			user.console.queue = ['text|Welcome back!<br/>Be sure to tell us if you like the game, have any suggestions, or find any issues!'];
 			user.console.defaultBottomHTML = '<center><!--mutebutton--><button name="send" value="/console sound" class="button">' + (user.console.muted ? 'Unmute' : 'Mute') + '</button><!--endmute--> <button name="send" value="/console shift" class="button">Shift</button> <button class="button" name="send" value="/sggame pokemon">Pokemon</button> <button class="button" name="send" value="/sggame bag">Bag</button> <button class="button" name="send" value="/sggame pc">PC Boxes</button> <button name="send" value="/sggame battle" class="button">Battle!</button> <button name="send" value="/resetalpha" class="button">Reset</button> <button class="button" name="send" value="/console kill">Power</button>';
@@ -635,7 +635,7 @@ exports.commands = {
 			target = toId(target);
 			let action = user.console.queueAction.split('|');
 			if (action[0] !== 'learn') return;
-			let pokemon = Db.players.get(user.userid).party[Number(action[1])];
+			let pokemon = SG.players.get(user.userid).party[Number(action[1])];
 			if (!target) {
 				// Pull up move selection menu to pick what to forget
 				user.console.curPane = 'learn'; // Force override any open pane
@@ -657,10 +657,10 @@ exports.commands = {
 			} else {
 				// Attempt to forget the specified move, and learn action[2]
 				if (pokemon.moves.indexOf(toId(target)) === -1) return false; // The pokemon dosent know this move.
-				let obj = Db.players.get(user.userid);
+				let obj = SG.players.get(user.userid);
 				obj.party[Number(action[1])].moves.splice(pokemon.moves.indexOf(toId(target)), 1);
 				obj.party[Number(action[1])].moves.push(toId(action[2]));
-				Db.players.set(user.userid, obj);
+				SG.players.set(user.userid, obj);
 				user.console.queueAction = null;
 				user.console.queue.unshift('text|1, 2, 3, and... POOF!<br/>' + (pokemon.name || pokemon.species) + ' forgot ' + target + ' and learned ' + action[2] + '!');
 				user.console.lastNextAction = null;
@@ -673,11 +673,11 @@ exports.commands = {
 			target = toId(target);
 			let action = user.console.queueAction.split('|');
 			if (action[0] !== 'evo') return;
-			let pokemon = Db.players.get(user.userid).party[Number(action[1])];
+			let pokemon = SG.players.get(user.userid).party[Number(action[1])];
 			if (!target) {
 				return user.console.update(user.console.curScreen[0], '<br/><br/><center><div style="border-radius: 100%; background: radial-gradient(white, #ddf); width: 15em; height: 15em;"></div></center><div style="display: inline-block; position: absolute; bottom: 0; overflow: hidden; border: 0.2em solid #000; border-radius: 5px; width: 99%; color: #000;"><center><button name="send" value="/sggame evo evolve" style="border: none; background: none; color: grey">Evolve!</button> <button name="send" value="/sggame evo stop" style="border: none; background: none; color: grey">Stop!</button></center></div>', null);
 			} else if (target === 'evolve') {
-				let obj = Db.players.get(user.userid);
+				let obj = SG.players.get(user.userid);
 				let temp = Dex.getTemplate(action[2]);
 				if (!temp.exists) throw new Error('Unable to evolve into non-existent pokemon: ' + action[2]);
 				if (pokemon.name === pokemon.species) obj.party[Number(action[1])].name = action[2];
@@ -731,7 +731,7 @@ exports.commands = {
 					obj.party.push(shed);
 					delete user.console.shed;
 				}
-				Db.players.set(user.userid, obj);
+				SG.players.set(user.userid, obj);
 				return user.console.update(user.console.curScreen[0], '<br/><br/><br/><br/><br/><center><img src="http://play.pokemonshowdown.com/sprites/xyani' + (pokemon.shiny ? '-shiny' : '') + '/' + temp.spriteid + '.gif" alt="' + action[2] + '"/></center><div style="display: inline-block; position: absolute; bottom: 0; overflow: hidden; border: 0.2em solid #000; border-radius: 5px; width: 99%; color: #000;">Congratulations! Your ' + (pokemon.name === pokemon.species ? temp.prevo : pokemon.name) + ' evolved into ' + action[2] + '!<button style="border: none; background: none; color: purple; cursor: pointer;" name="send" value="/sggame evo finish"><u>&#9733;</u></button></div>', null);
 			} else if (target === 'stop') {
 				if (user.console.shed) delete user.console.shed;
@@ -768,7 +768,7 @@ exports.commands = {
 			if (user.console.curPane && user.console.curPane !== 'bag') return;
 			user.console.curPane = 'bag';
 			let data = {};
-			let player = Db.players.get(user.userid);
+			let player = SG.players.get(user.userid);
 			if (!player) return this.errorReplay("You need to advance farther in the game first!");
 			let item = WL.getItem(target[1]);
 			if (target[0] && !player.bag[target[0]]) target[0] = 'items';
@@ -801,7 +801,7 @@ exports.commands = {
 				if (target[2] === 'use' && !item.use) return this.parse('/sggame bag ' + target[0] + ', ' + target[1]); // This item cannot be 'used'
 				let mon = player.party[target[3]];
 				if (!mon) return this.parse('/sggame bag ' + target[0] + ', ' + target[1]);
-				if (!Db.players.get(user.userid).bag[item.slot][item.id]) return this.parse('/sggame bag ' + target[0]); // Dont have one to use
+				if (!SG.players.get(user.userid).bag[item.slot][item.id]) return this.parse('/sggame bag ' + target[0]); // Dont have one to use
 				if (target[2] === 'give' && !inBattle) {
 					if (!Dex.getItem(target[1]).exists && !item.use.triggerEvo) return this.parse('/sggame bag ' + target[0] + ', ' + target[1]);
 					let old = mon.item;
@@ -812,7 +812,7 @@ exports.commands = {
 					}
 					player.bag[target[0]][target[1]]--;
 					mon.item = target[1];
-					Db.players.set(user.userid, player);
+					SG.players.set(user.userid, player);
 					data.give = '/sggame bag ' + target[0] + ', ' + target[1] + ', give';
 					if (!item.use.battleOnly) data.use = '/sggame bag ' + target[0] + ', ' + target[1] + ', use';
 					data.back = '/sggame bag ' + target[0];
@@ -868,7 +868,7 @@ exports.commands = {
 									user.console.queue.unshift(org);
 								}
 								player.bag[target[0]][target[1]]--;
-								Db.players.set(user.userid, player);
+								SG.players.set(user.userid, player);
 								let r = user.console.next(canReturn);
 								return user.console.update((r[0] || user.console.curScreen[0]), (r[1] || user.console.curScreen[1]), (r[2] || user.console.curScreen[2]));
 							}
@@ -880,9 +880,9 @@ exports.commands = {
 							let evos = WL.canEvolve(player.party[target[3]], trigger, user.userid, {location: null, item: item.id}); // TODO locations
 							if (evos) {
 								if (trigger === 'trade') {
-									let obj = Db.players.get(user.userid);
+									let obj = SG.players.get(user.userid);
 									obj.bag.items.linkcable--;
-									Db.players.set(user.userid, obj);
+									SG.players.set(user.userid, obj);
 								}
 								evos = evos.split('|');
 								if (evos.length > 1 && evos.indexOf('shedinja') > -1) {
@@ -909,7 +909,7 @@ exports.commands = {
 							user.console.queue.push('text|But it would have no effect...<br/><button style="border: none; background: none; color: purple; cursor: pointer;" name="send" value="/sggame bag ' + target[0] + ', ' + target[1] + '">Return to bag</button>');
 						} else {
 							player.bag[target[0]][target[1]]--;
-							Db.players.set(user.userid, player);
+							SG.players.set(user.userid, player);
 						}
 						let r = user.console.next(true);
 						return user.console.update((r[0] || user.console.curScreen[0]), (r[1] || user.console.curScreen[1]), (r[2] || user.console.curScreen[2]));
@@ -936,7 +936,7 @@ exports.commands = {
 			if (user.console.curPane && user.console.curPane !== 'pokemon') return;
 			user.console.curPane = 'pokemon';
 			let data = {};
-			let player = Db.players.get(user.userid);
+			let player = SG.players.get(user.userid);
 			let detail = null;
 			if (!target[0]) {
 				data = {move: '/sggame pokemon move'};
@@ -966,7 +966,7 @@ exports.commands = {
 					let holding = player.party[target[1]];
 					player.party[target[1]] = player.party[target[2]];
 					player.party[target[2]] = holding;
-					Db.players.set(user.userid, player);
+					SG.players.set(user.userid, player);
 					return this.parse('/sggame pokemon');
 				} else {
 					data.cancel = '/sggame pokemon';
@@ -994,11 +994,11 @@ exports.commands = {
 			let slot = target[1];
 			let box = (target[0].split('|')[0] === 'party' ? target[0].split('|')[1] : target[0]);
 			let orders = {};
-			if (target[0].split('|')[0] === 'party' && slot && Db.players.get(user.userid).party.length > 1 && !isNaN(Number(slot)) && Number(slot) > -1 && Number(slot) < 6 && !target[2]) {
-				orders = {deposit: (Db.players.get(user.userid).pc[Number(target[0].split('|')[1]) - 1].length < 30), release: true, back: '/sggame pc ' + box};
+			if (target[0].split('|')[0] === 'party' && slot && SG.players.get(user.userid).party.length > 1 && !isNaN(Number(slot)) && Number(slot) > -1 && Number(slot) < 6 && !target[2]) {
+				orders = {deposit: (SG.players.get(user.userid).pc[Number(target[0].split('|')[1]) - 1].length < 30), release: true, back: '/sggame pc ' + box};
 			}
-			if (slot && !isNaN(Number(slot)) && Number(slot) > -1 && Number(slot) < 30 && Db.players.get(user.userid).pc[Number(box) - 1][Number(slot)] && !target[2] && target[0].split('|')[0] !== 'party') {
-				orders = {withdraw: (Db.players.get(user.userid).party.length < 6), release: true, back: '/sggame pc ' + box};
+			if (slot && !isNaN(Number(slot)) && Number(slot) > -1 && Number(slot) < 30 && SG.players.get(user.userid).pc[Number(box) - 1][Number(slot)] && !target[2] && target[0].split('|')[0] !== 'party') {
+				orders = {withdraw: (SG.players.get(user.userid).party.length < 6), release: true, back: '/sggame pc ' + box};
 			}
 			if (target[2] === 'release') orders.back = '/sggame pc ' + target[0] + ', ' + target[1];
 			if ((slot || Number(slot) === 0) && !target[2]) orders.back = '/sggame pc ' + box;
@@ -1006,18 +1006,18 @@ exports.commands = {
 			case 'withdraw':
 				if (target[0].split('|')[0] === 'party') {
 					target[2] = '';
-					orders = {deposit: (Db.players.get(user.userid).party.length > 1), release: (Db.players.get(user.userid).party.length > 1), back: '/sggame pc ' + box};
+					orders = {deposit: (SG.players.get(user.userid).party.length > 1), release: (SG.players.get(user.userid).party.length > 1), back: '/sggame pc ' + box};
 				}
 				break;
 			case 'deposit':
 				if (target[0].split('|')[0] !== 'party') {
 					target[2] = '';
-					orders = {withdraw: (Db.players.get(user.userid).party.length < 6), release: true, back: '/sggame pc ' + box};
+					orders = {withdraw: (SG.players.get(user.userid).party.length < 6), release: true, back: '/sggame pc ' + box};
 				}
 				break;
 			case 'release':
 			case 'confirmrelease':
-				if (target[0].split('|')[0] === 'party' && Db.players.get(user.userid).party.length <= 1) {
+				if (target[0].split('|')[0] === 'party' && SG.players.get(user.userid).party.length <= 1) {
 					target[2] = '';
 					orders = {back: '/sggame pc ' + box};
 				}
@@ -1036,7 +1036,7 @@ exports.commands = {
 			target[0] = Number(toId(target[0]));
 			if (isNaN(target[0])) return this.errorReply("[party slot] should be a number between 1 and 6.");
 			target[0] -= 1; // array offset
-			let player = Db.players.get(user.userid);
+			let player = SG.players.get(user.userid);
 			if (!player) return this.errorReply("You need to advance farther in the game before you can use this command!");
 			if (!player.party[target[0]]) return this.errorReply("There is no pokemon in slot #" + (target[0] + 1) + " in your party.");
 			if (target[1].trim().length > 12) return this.errorReply("Nicknames cannot be more than 12 characters.");
@@ -1055,16 +1055,16 @@ exports.commands = {
 		battle: function (target, room, user, connection) {
 			if (user.console.queue.length) return;
 			if (user.console.queueAction) return;
-			if (!Db.players.get(user.userid).party.length) return user.popup('You have no pokemon to battle with!');
+			if (!SG.players.get(user.userid).party.length) return user.popup('You have no pokemon to battle with!');
 			if (toId(target) === 'close' && user.console.curPane === 'battle') {
-				Users('sgserver').wildTeams[user.userid] = null;
-				Users('sgserver').trainerTeams[user.userid] = null;
+				Users('surgeserver').wildTeams[user.userid] = null;
+				Users('surgeserver').trainerTeams[user.userid] = null;
 				user.console.curPane = null;
 				return user.console.update();
 			}
 			if (user.console.curPane && user.console.curPane !== 'battle') return;
 			user.console.curPane = 'battle';
-			if (!Users('sgserver')) WL.makeCOM();
+			if (!Users('surgeserver')) WL.makeCOM();
 			if (!toId(target)) {
 				return user.console.update(null, user.console.battle(), user.console.defaultBottomHTML + '<br/><center><button class="button" name="send" value="/sggame battle close">Close</button></center>');
 			} else {
@@ -1072,38 +1072,38 @@ exports.commands = {
 				switch (toId(target[0])) {
 				case 'wild':
 					if (!target[1]) {
-						Users('sgserver').wildTeams[user.userid] = WL.makeWildPokemon(false, WL.teamAverage(Db.players.get(user.userid).party));
+						Users('surgeserver').wildTeams[user.userid] = WL.makeWildPokemon(false, WL.teamAverage(SG.players.get(user.userid).party));
 						return user.console.update(null, user.console.battle('wild', Users('sgserver').wildTeams[user.userid]), user.console.defaultBottomHTML + '<br/><center><button class="button" name="send" value="/sggame battle close">Close</button></center>');
 					}
 					if (toId(target[1]) === 'confirm') {
-						if (!Users('sgserver').wildTeams[user.userid]) return this.parse('/sggame battle wild');
+						if (!Users('surgeserver').wildTeams[user.userid]) return this.parse('/sggame battle wild');
 						user.console.curPane = null;
 						user.console.update();
 						this.parse('/search gen7wildpokemonalpha');
 					} else {
-						Users('sgserver').wildTeams[user.userid] = null;
+						Users('surgeserver').wildTeams[user.userid] = null;
 						user.console.update(null, user.console.battle(), user.console.defaultBottomHTML + '<br/><center><button class="button" name="send" value="/sggame battle close">Close</button></center>');
 					}
 					break;
 				case 'trainer':
 					if (!target[1]) {
-						Users('sgserver').trainerTeams[user.userid] = WL.makeComTeam(WL.teamAverage(Db.players.get(user.userid).party), Db.players.get(user.userid).party.length);
-						return user.console.update(null, user.console.battle('trainer', Users('sgserver').trainerTeams[user.userid]), user.console.defaultBottomHTML + '<br/><center><button class="button" name="send" value="/sggame battle close">Close</button></center>');
+						Users('surgeserver').trainerTeams[user.userid] = WL.makeComTeam(WL.teamAverage(SG.players.get(user.userid).party), SG.players.get(user.userid).party.length);
+						return user.console.update(null, user.console.battle('trainer', Users('surgeserver').trainerTeams[user.userid]), user.console.defaultBottomHTML + '<br/><center><button class="button" name="send" value="/sggame battle close">Close</button></center>');
 					}
 					if (toId(target[1]) === 'confirm') {
-						if (!Users('sgserver').trainerTeams[user.userid]) return this.parse('/sggame battle trainer');
+						if (!Users('surgeserver').trainerTeams[user.userid]) return this.parse('/sggame battle trainer');
 						user.console.curPane = null;
 						user.console.update();
 						this.parse('/search gen7trainerbattlealpha');
 					} else {
-						Users('sgserver').trainerTeams[user.userid] = null;
+						Users('surgeserver').trainerTeams[user.userid] = null;
 						user.console.update(null, user.console.battle(), user.console.defaultBottomHTML + '<br/><center><button class="button" name="send" value="/sggame battle close">Close</button></center>');
 					}
 					break;
 				case 'search':
 					user.console.curPane = null;
 					user.console.update();
-					this.parse('/search gen7sggameanythinggoes');
+					this.parse('/search gen7sgameanythinggoes');
 					break;
 				}
 			}
@@ -1112,7 +1112,7 @@ exports.commands = {
 	sggamehelp: function (target, room, user) {
 		if (!this.runBroadcast()) return;
 		this.sendReplyBox(
-			"Wanna know how to play SGGame? <br/>" +
+			"Wanna know how to play SGame? <br/>" +
 			"<a href=\"https://pastebin.com/raw/GK3fsSqS\">Check it out here!</a>"
 		);
 	},
@@ -1146,14 +1146,14 @@ exports.commands = {
 			break;
 		case 'confirmpickstarter':
 			let player = new Player(user, Dex.fastUnpackTeam(WL.makeWildPokemon(false, false, {species: target, level: 10, ability: 0, ot: user.userid})));
-			let oldPlayer = Db.players.get(user.userid);
+			let oldPlayer = SG.players.get(user.userid);
 			if (oldPlayer && oldPlayer.bag.keyitems.alphaticket) {
 				player.bag.keyitems.alphaticket = oldPlayer.bag.keyitems.alphaticket;
 			}
 			if (oldPlayer && oldPlayer.version !== user.console.version && user.console.version.includes('Alpha')) {
 				player.bag.keyitems.alphaticket++;
 			}
-			Db.players.set(user.userid, player);
+			SG.players.set(user.userid, player);
 			user.console.lastNextAction = null;
 			if (user.lastCommand) delete user.lastCommand;
 			this.parse('/sggame next');
@@ -1171,7 +1171,7 @@ exports.commands = {
 		if (room.battle.ended) return this.errorReply('The battle is already over, you can\'t throw a pokeball.');
 		target = toId(target);
 		if (['pokeball', 'greatball', 'ultraball', 'masterball'].indexOf(target) === -1) return this.errorReply('Thats not a pokeball, or at least not one we support.');
-		let obj = Db.players.get(user.userid);
+		let obj = SG.players.get(user.userid);
 		if (!obj) return false;
 		if (!obj.bag.pokeballs[target]) return this.errorReply("You don't have any " + target + "'s");
 		let side = (toId(room.battle.p1.name) === toId(user) ? "p1" : "p2");
@@ -1196,17 +1196,17 @@ exports.commands = {
 		if (target[1] === 'masterball' && !user.can('lockdown')) return this.errorReply(`Only Administrators may give masterballs.`);
 		target[2] = parseInt(target[2]);
 		if (isNaN(target[2]) || target[2] < 1 || target[2] > 100) return this.errorReply(`Pokeball amount must be a number between 1 and 100.`);
-		let p = Db.players.get(u.userid);
+		let p = SG.players.get(u.userid);
 		if (!p) return this.errorReply(`${u.userid} has not started SGgame and cannot be given pokeballs at this time.`);
 		if (!p.bag.pokeballs[target[1]]) p.bag.pokeballs[target[1]] = 0;
 		p.bag.pokeballs[target[1]] += target[2];
-		Db.players.set(u.userid, p);
+		SG.players.set(u.userid, p);
 		return this.sendReply(`${u.userid} has been given ${target[2]} ${target[1]}'s. They now have ${p.bag.pokeballs[target[1]]} ${target[1]}'s.`);
 	},
 	givepokeballshelp: ['/givepokeballs [user], [type], [amount] - Give a user pokeballs. Requires global @ & ~'],
 	exportteam: function (target, room, user) {
 		// Allow users to save their SGgame teams to teambuilder
-		let player = Db.players.get(user.userid);
+		let player = SG.players.get(user.userid);
 		if (!player) return this.errorReply(`You need to start SGgame before doing this.`);
 		return this.sendReplyBox(`<b>Your SGgame party</b>:<br/><br/>${Dex.packTeam(player.party)}<br/><br/>Paste the above into the import team section in teambuilder.`);
 	},
