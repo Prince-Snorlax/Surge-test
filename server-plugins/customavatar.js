@@ -9,13 +9,10 @@
 
 /* eslint no-restricted-modules: [0] */
 
-const fs = require('fs');
+const FS = require('fs');
 const path = require('path');
 const request = require('request');
-const mongo = require('mongodb');
-const Grid = require('gridfs');
-mongo.MongoClient.connect('mongodb://ClarkJ:Musaddiq777@surgedb-shard-00-00-coe3y.mongodb.net:27017,surgedb-shard-00-01-coe3y.mongodb.net:27017,surgedb-shard-00-02-coe3y.mongodb.net:27017/test?ssl=true&replicaSet=SurgeDB-shard-0&authSource=admin', function(err, db) {
-  const gfs = Grid(db, mongo);
+
 // The path where custom avatars are stored.
 const AVATAR_PATH = path.join(__dirname, '../config/avatars/');
 
@@ -33,12 +30,12 @@ function downloadImage(image_url, name, extension) {
 			let type = response.headers['content-type'].split('/');
 			if (type[0] !== 'image') return;
 
-			response.pipe(gfs.createWriteStream(AVATAR_PATH + name + extension));
+			response.pipe(FS.createWriteStream(AVATAR_PATH + name + extension));
 		});
 }
 
 function loadCustomAvatars() {
-	gfs.readdir(AVATAR_PATH, (err, files) => {
+	FS.readdir(AVATAR_PATH, (err, files) => {
 		if (err) console.log("Error loading custom avatars: " + err);
 		if (!files) files = [];
 		files
@@ -86,7 +83,7 @@ exports.commands = {
 			if (!image) return this.errorReply(target + " does not have a custom avatar.");
 
 			delete Config.customavatars[userid];
-			gfs.unlink(AVATAR_PATH + image, err => {
+			FS.unlink(AVATAR_PATH + image, err => {
 				if (err && err.code === 'ENOENT') {
 					this.errorReply(target + "'s avatar does not exist.");
 				} else if (err) {
