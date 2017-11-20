@@ -1057,14 +1057,14 @@ exports.commands = {
 			if (user.console.queueAction) return;
 			if (!Db.players.get(user.userid).party.length) return user.popup('You have no pokemon to battle with!');
 			if (toId(target) === 'close' && user.console.curPane === 'battle') {
-				Users('surgeserver').wildTeams[user.userid] = null;
-				Users('surgeserver').trainerTeams[user.userid] = null;
+				Users('sgserver').wildTeams[user.userid] = null;
+				Users('sgserver').trainerTeams[user.userid] = null;
 				user.console.curPane = null;
 				return user.console.update();
 			}
 			if (user.console.curPane && user.console.curPane !== 'battle') return;
 			user.console.curPane = 'battle';
-			if (!Users('surgeserver')) WL.makeCOM();
+			if (!Users('sgserver')) WL.makeCOM();
 			if (!toId(target)) {
 				return user.console.update(null, user.console.battle(), user.console.defaultBottomHTML + '<br/><center><button class="button" name="send" value="/sggame battle close">Close</button></center>');
 			} else {
@@ -1072,31 +1072,31 @@ exports.commands = {
 				switch (toId(target[0])) {
 				case 'wild':
 					if (!target[1]) {
-						Users('surgeserver').wildTeams[user.userid] = WL.makeWildPokemon(false, WL.teamAverage(Db.players.get(user.userid).party));
+						Users('sgserver').wildTeams[user.userid] = WL.makeWildPokemon(false, WL.teamAverage(Db.players.get(user.userid).party));
 						return user.console.update(null, user.console.battle('wild', Users('sgserver').wildTeams[user.userid]), user.console.defaultBottomHTML + '<br/><center><button class="button" name="send" value="/sggame battle close">Close</button></center>');
 					}
 					if (toId(target[1]) === 'confirm') {
-						if (!Users('surgeserver').wildTeams[user.userid]) return this.parse('/sggame battle wild');
+						if (!Users('sgserver').wildTeams[user.userid]) return this.parse('/sggame battle wild');
 						user.console.curPane = null;
 						user.console.update();
 						this.parse('/search gen7wildpokemonalpha');
 					} else {
-						Users('surgeserver').wildTeams[user.userid] = null;
+						Users('sgserver').wildTeams[user.userid] = null;
 						user.console.update(null, user.console.battle(), user.console.defaultBottomHTML + '<br/><center><button class="button" name="send" value="/sggame battle close">Close</button></center>');
 					}
 					break;
 				case 'trainer':
 					if (!target[1]) {
-						Users('surgeserver').trainerTeams[user.userid] = WL.makeComTeam(WL.teamAverage(Db.players.get(user.userid).party), Db.players.get(user.userid).party.length);
+						Users('sgserver').trainerTeams[user.userid] = WL.makeComTeam(WL.teamAverage(Db.players.get(user.userid).party), Db.players.get(user.userid).party.length);
 						return user.console.update(null, user.console.battle('trainer', Users('sgserver').trainerTeams[user.userid]), user.console.defaultBottomHTML + '<br/><center><button class="button" name="send" value="/sggame battle close">Close</button></center>');
 					}
 					if (toId(target[1]) === 'confirm') {
-						if (!Users('surgeserver').trainerTeams[user.userid]) return this.parse('/sggame battle trainer');
+						if (!Users('sgserver').trainerTeams[user.userid]) return this.parse('/sggame battle trainer');
 						user.console.curPane = null;
 						user.console.update();
 						this.parse('/search gen7trainerbattlealpha');
 					} else {
-						Users('surgeserver').trainerTeams[user.userid] = null;
+						Users('sgserver').trainerTeams[user.userid] = null;
 						user.console.update(null, user.console.battle(), user.console.defaultBottomHTML + '<br/><center><button class="button" name="send" value="/sggame battle close">Close</button></center>');
 					}
 					break;
