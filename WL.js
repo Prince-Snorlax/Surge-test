@@ -94,7 +94,7 @@ exports.WL = {
 		http.get(options, () => {});
 	},
 
-	//Daily Rewards System for Wavelength by Lord Haji
+	/*Daily Rewards System for Wavelength by Lord Haji *//*
 	giveDailyReward: function (user) {
 		if (!user || !user.named) return false;
 		let reward = 0, time = Date.now();
@@ -116,15 +116,15 @@ exports.WL = {
 		}
 		Economy.writeMoney(user.userid, reward);
 		user.send('|popup||wide||html| <center><u><b><font size="3">Wavelength Daily Bonus</font></b></u><br>You have been awarded ' + reward + ' Stardust.<br>' + showDailyRewardAni(reward) + '<br>Because you have connected to the server for the past ' + (reward === 1 ? 'Day' : reward + ' Days') + '.</center>');
-	},
+	},*/
 	makeCOM: function () {
-		if (Users('sgserver')) return false; // Already exists!
+		if (Users('surgeserver')) return false; // Already exists!
 		let user = new Users.User({user: false, send: function () {}, inRooms: new Set(), worker: {send: function () {}}, socketid: false, ip: '127.0.0.1', protocal: '', autojoin: '', isCOM: true}); // Fake connection object, fill it with whats needed to prevent crashes
 		user.connected = false; // Technically isnt connected
 		user.avatar = 167;
 		user.wildTeams = {}; // Object to store data from wild pokemon battles.
 		user.trainerTeams = {}; // Object to store data from trainer battles.
-		user.forceRename('SG Server', true); // I have this name registed for use here. - HoeenHero
+		user.forceRename('Surge Server', true); // I have this name registed for use here. - HoeenHero
 		return user;
 	},
 	makeWildPokemon: function (location, lvlBase, exact) {
@@ -428,10 +428,10 @@ exports.WL = {
 			if (evoData.special) {
 				// Special rules for special evolutions
 				if (pokemon.species === 'nincada') {
-					let player = Db.players.get(toId(userid));
+					let player = SG.players.get(toId(userid));
 					if (player.party.length >= 5 || !player.bag.pokeballs.pokeball) continue;
 				} else if (pokemon.species === 'mantyke') {
-					let player = Db.players.get(toId(userid));
+					let player = SG.players.get(toId(userid));
 					let rem = false;
 					for (let p = 0; p < player.party.length; p++) {
 						if (player.party[p].species === 'remoraid') {
