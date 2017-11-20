@@ -1,7 +1,7 @@
 'use strict';
 
 // The server port - the port to run Pokemon Showdown under
-exports.port = 8080;
+exports.port = 80;
 
 // The server name (this will speed up the process of renaming some features)
 exports.serverName = "Surge";
