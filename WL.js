@@ -4,7 +4,7 @@ let fs = require('fs');
 let http = require('http');
 const Autolinker = require('autolinker');
 
-let regdateCache = {};
+/*let regdateCache = {};*/
 
 exports.WL = {
 	nameColor: function (name, bold, userGroup) {
