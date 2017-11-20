@@ -16,9 +16,7 @@
     "origindb": "^2.6.1",
     "request": "^2.82.0",
     "sockjs": "0.3.18",
-    "uuid": "^2.0.2",
-    "gridfs": "1.0.0",
-    "mongodb": "2.2.33"
+    "uuid": "^2.0.2"
   },
   "optionalDependencies": {
     "cloud-env": "0.2.2",
