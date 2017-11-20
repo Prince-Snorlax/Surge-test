@@ -92,10 +92,6 @@ if (Config.watchconfig) {
  * Set up most of our globals
  *********************************************************/
 /* Surge Game Globals */
-global.WL = {};
-global.SG = require('nef')(require('nef-mongo')('mongodb://PrinceSky:Musaddiq777@ds259085.mlab.com:59085/surge-db'));
-global.WL = require('./WL.js').WL;
-/* SG Globals End */
 global.Server = {};
 
 global.Dex = require('./sim/dex');
